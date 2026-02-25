@@ -47,6 +47,7 @@ def _fetch_ipfs_mcp_meta(sdk: SDK, agent_id_int: int) -> dict:
         for svc in data.get("services", []):
             if svc.get("name") == "MCP":
                 return {
+                    "mcpEndpoint": svc.get("endpoint"),
                     "mcpTools": svc.get("mcpTools", []),
                     "fleetEndpoint": svc.get("fleetEndpoint"),
                 }
@@ -109,6 +110,7 @@ def discover_robots(
             "robot_type": rtype_str,
             "fleet_provider": provider_str,
             "fleet_domain": fleet_str,
+            "mcp_endpoint": ipfs_meta.get("mcpEndpoint"),
             "mcp_tools": tools,
             "fleet_endpoint": fleet_endpoint,
         })
