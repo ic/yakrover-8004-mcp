@@ -97,11 +97,11 @@ def discover_robots(
 
         name = agent.get("name") if isinstance(agent, dict) else agent.name
         tools = agent.get("mcpTools", []) if isinstance(agent, dict) else getattr(agent, "mcpTools", [])
-        fleet_endpoint = None
+
+        ipfs_meta = _fetch_ipfs_mcp_meta(sdk, agent_id_int)
         if not tools:
-            ipfs_meta = _fetch_ipfs_mcp_meta(sdk, agent_id_int)
             tools = ipfs_meta.get("mcpTools", [])
-            fleet_endpoint = ipfs_meta.get("fleetEndpoint")
+        fleet_endpoint = ipfs_meta.get("fleetEndpoint")
 
         robots.append({
             "agent_id": agent_id_str,
